@@ -1,0 +1,74 @@
+[
+    {
+        "timestamp": "2026-11-23T15:47:17.983026+00:00",
+        "resource": "college-project-data",
+        "resource_type": "S3",
+        "action": "PUBLIC_ACCESS_BLOCKED",
+        "status": "SUCCESS",
+        "details": "Public access disabled and encryption enabled."
+    },
+    {
+        "timestamp": "2026-11-23T15:49:30.396320+00:00",
+        "resource": "sg-001",
+        "resource_type": "EC2_SECURITY_GROUP",
+        "action": "UNRESTRICTED_SSH_RULE_REMOVED",
+        "status": "SUCCESS",
+        "details": "Unrestricted SSH inbound rule removed."
+    },
+    {
+        "timestamp": "2026-11-23T15:52:46.235305+00:00",
+        "resource": "college-project-data",
+        "resource_type": "S3",
+        "action": "PUBLIC_ACCESS_BLOCKED",
+        "status": "SUCCESS",
+        "details": "Public access disabled and encryption enabled."
+    },
+    {
+        "timestamp": "2026-11-23T15:52:57.336266+00:00",
+        "resource": "sg-001",
+        "resource_type": "EC2_SECURITY_GROUP",
+        "action": "UNRESTRICTED_SSH_RULE_REMOVED",
+        "status": "SUCCESS",
+        "details": "Unrestricted SSH inbound rule removed."
+    },
+    {
+        "timestamp": "2026-11-24T06:15:39.690222+00:00",
+        "resource": "college-project-data",
+        "resource_type": "S3",
+        "action": "PUBLIC_ACCESS_BLOCKED",
+        "status": "SUCCESS",
+        "details": "Public access disabled and encryption enabled."
+    },
+    {
+        "timestamp": "2026-11-24T06:16:39.382327+00:00",
+        "resource": "college-project-data",
+        "resource_type": "S3",
+        "action": "PUBLIC_ACCESS_BLOCKED",
+        "status": "SUCCESS",
+        "details": "Public access disabled and encryption enabled."
+    },
+    {
+        "timestamp": "2026-11-24T06:16:39.394777+00:00",
+        "resource": "sg-001",
+        "resource_type": "EC2_SECURITY_GROUP",
+        "action": "UNRESTRICTED_SSH_RULE_REMOVED",
+        "status": "SUCCESS",
+        "details": "Unrestricted SSH inbound rule removed."
+    },
+    {
+        "timestamp": "2026-11-24T06:27:03.463859+00:00",
+        "resource": "college-project-data",
+        "resource_type": "S3",
+        "action": "PUBLIC_ACCESS_BLOCKED",
+        "status": "SUCCESS",
+        "details": "Public access disabled and encryption enabled."
+    },
+    {
+        "timestamp": "2026-11-24T06:27:03.475193+00:00",
+        "resource": "sg-001",
+        "resource_type": "EC2_SECURITY_GROUP",
+        "action": "UNRESTRICTED_SSH_RULE_REMOVED",
+        "status": "SUCCESS",
+        "details": "Unrestricted SSH inbound rule removed."
+    }
+]

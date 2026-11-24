@@ -1,0 +1,35 @@
+[
+    {
+        "eventTime": "2026-11-24T06:25:43.852898+00:00",
+        "eventSource": "s3.amazonaws.com",
+        "eventName": "PutBucketPolicy",
+        "resourceName": "college-project-data",
+        "resourceType": "S3",
+        "userIdentity": {
+            "type": "IAMUser",
+            "userName": "test-user"
+        }
+    },
+    {
+        "eventTime": "2026-11-24T06:25:43.852926+00:00",
+        "eventSource": "ec2.amazonaws.com",
+        "eventName": "AuthorizeSecurityGroupIngress",
+        "resourceName": "sg-001",
+        "resourceType": "EC2",
+        "userIdentity": {
+            "type": "IAMUser",
+            "userName": "test-user"
+        }
+    },
+    {
+        "eventTime": "2026-11-24T06:25:43.852931+00:00",
+        "eventSource": "ec2.amazonaws.com",
+        "eventName": "ConsoleLogin",
+        "resourceName": "AWS Console",
+        "resourceType": "IAM",
+        "userIdentity": {
+            "type": "IAMUser",
+            "userName": "test-user"
+        }
+    }
+]

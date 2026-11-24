@@ -1,0 +1,21 @@
+{
+    "s3_buckets": {
+        "college-project-data": {
+            "public_access": false,
+            "block_public_access": true,
+            "encryption_enabled": true
+        }
+    },
+    "security_groups": {
+        "sg-001": {
+            "description": "Test web server security group",
+            "inbound_rules": [
+                {
+                    "protocol": "tcp",
+                    "port": 443,
+                    "source": "0.0.0.0/0"
+                }
+            ]
+        }
+    }
+}

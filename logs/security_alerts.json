@@ -1,0 +1,22 @@
+[
+    {
+        "alert_id": "SEC-20261124062543863312",
+        "timestamp": "2026-11-24T06:25:43.863340+00:00",
+        "severity": "HIGH",
+        "incident_type": "PutBucketPolicy",
+        "resource": "college-project-data",
+        "resource_type": "S3",
+        "message": "Suspicious cloud security activity detected.",
+        "status": "OPEN"
+    },
+    {
+        "alert_id": "SEC-20261124062543872498",
+        "timestamp": "2026-11-24T06:25:43.872538+00:00",
+        "severity": "HIGH",
+        "incident_type": "AuthorizeSecurityGroupIngress",
+        "resource": "sg-001",
+        "resource_type": "EC2",
+        "message": "Suspicious cloud security activity detected.",
+        "status": "OPEN"
+    }
+]

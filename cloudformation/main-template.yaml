@@ -1,0 +1,126 @@
+
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: >
+  Cloud Security Incident Response Monitoring Stack
+  with Automated Alerting and Remediation.
+
+Resources:
+
+  # SNS Topic for Security Notifications
+  SecurityAlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: CloudSecurityAlerts
+
+  # Test S3 Bucket
+  VulnerableS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+  # IAM Role for Lambda Functions
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  # Alert Handler Lambda
+  AlertHandlerFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: CloudSecurityAlertHandler
+      Runtime: python3.12
+      Handler: alert_handler.lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Timeout: 30
+      Code:
+        ZipFile: |
+          import json
+          import os
+          import boto3
+
+          sns = boto3.client('sns')
+
+          def lambda_handler(event, context):
+              topic_arn = os.environ['SNS_TOPIC_ARN']
+
+              sns.publish(
+                  TopicArn=topic_arn,
+                  Subject='Cloud Security Alert',
+                  Message=json.dumps(event, indent=2)
+              )
+
+              return {
+                  'statusCode': 200,
+                  'body': 'Security alert sent'
+              }
+      Environment:
+        Variables:
+          SNS_TOPIC_ARN: !Ref SecurityAlertTopic
+
+  # EventBridge Rule for Suspicious API Calls
+  SuspiciousActivityRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Detect suspicious cloud API activity
+      State: ENABLED
+      EventPattern:
+        source:
+          - aws.s3
+          - aws.ec2
+        detail-type:
+          - AWS API Call via CloudTrail
+        detail:
+          eventSource:
+            - s3.amazonaws.com
+            - ec2.amazonaws.com
+          eventName:
+            - PutBucketPolicy
+            - PutBucketAcl
+            - PutBucketPublicAccessBlock
+            - AuthorizeSecurityGroupIngress
+      Targets:
+        - Arn: !GetAtt AlertHandlerFunction.Arn
+          Id: AlertHandlerTarget
+
+  # Allow EventBridge to Invoke Lambda
+  AllowEventBridgeInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref AlertHandlerFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt SuspiciousActivityRule.Arn
+
+Outputs:
+
+  S3BucketName:
+    Description: Test S3 bucket name
+    Value: !Ref VulnerableS3Bucket
+
+  SNSTopicArn:
+    Description: Security notification topic ARN
+    Value: !Ref SecurityAlertTopic
+
+  AlertLambdaName:
+    Description: Alert Lambda function name
+    Value: !Ref AlertHandlerFunction
